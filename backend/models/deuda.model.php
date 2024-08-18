@@ -38,13 +38,21 @@ class DeudaModel{
         // Preparación de la consulta de lectura.
         $query = Connection::connect() -> prepare(
 
-            " SELECT CLIENTE.clienteID, CLIENTE.nIdentidad, (CLIENTE.pNombre || ' ' || CLIENTE.pApellido) as nombreCliente,
-            $tablaDeuda.valorCuota, $tablaDeuda.pagado
-            FACTURACOMPRA.total as total
-            FROM $tablaDeuda
-            INNER JOIN CLIENTE ON $tablaDeuda.clienteID = CLIENTE.clienteID
-            INNER JOIN FACTURACOMPRA ON $tablaDeuda.facturaCompraID = FACTURACOMPRA.facturaCompraID
-            WHERE deudaID = :deudaID;
+            "SELECT 
+    CLIENTE.clienteID, 
+    CLIENTE.nIdentidad, 
+    (CLIENTE.pNombre || ' ' || CLIENTE.pApellido) AS nombreCliente, 
+    $tablaDeuda.valorCuota, 
+    $tablaDeuda.pagado, 
+    FACTURACOMPRA.total 
+FROM 
+    Deuda 
+INNER JOIN 
+    CLIENTE ON $tablaDeuda.clienteID = CLIENTE.clienteID 
+INNER JOIN 
+    FACTURACOMPRA ON $tablaDeuda.facturaCompraID = FACTURACOMPRA.facturaCompraID 
+WHERE 
+    $tablaDeuda.deudaID =:deudaID;
             "
         );
 

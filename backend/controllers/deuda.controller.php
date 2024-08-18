@@ -101,7 +101,8 @@ class DeudaController {
 
                 $datosDeuda = DeudaModel::readOne("deuda", $deudaID);
                 $datosCliente = ClienteModel::readOne("cliente", $datosDeuda[0]->CLIENTEID);
-                $lineaCreditoSumada = $datosDeuda[0]->TOTAL + $datosCliente[0]->CREDITODISPONIBLE;
+              
+$lineaCreditoSumada = floatval($datosDeuda[0]->TOTAL) + floatval($datosCliente[0]->CREDITODISPONIBLE);
                 ClienteModel::updateCreditLineClient("cliente", $datosDeuda[0]->CLIENTEID, $lineaCreditoSumada);
 
                 $json = array(

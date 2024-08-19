@@ -1093,6 +1093,31 @@ if(count(array_filter($arrayRutas)) >= 3){
 
             break;
 
+            case 'login.php':
+                $loginController = new LoginController();
+        
+                $response = match($requestMethod) {
+                    'POST' => function() use ($loginController) {
+                        $username = $_POST['username'];
+                        $password = $_POST['password'];
+        
+                        $loginController->login($username, $password);
+                    },
+                    default => function() {
+                        $json = array(
+                            "status" => 404,
+                            "detalle" => "Método no permitido"
+                        );
+        
+                        echo json_encode($json, true);
+                        return;
+                    },
+                };
+        
+                $response();
+        
+            break;
+
             default:
 
                 $json=array(

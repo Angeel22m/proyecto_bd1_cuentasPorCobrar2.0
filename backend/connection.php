@@ -12,8 +12,8 @@ static public function connect(){
     //$userName = "db2admin";
     //$password = "12345678";
 
-    $userName = "db2admin";
-    $password = "12345678";
+    //$userName = "db2admin";
+    //$password = "12345678";
 
     try {
         $link = new PDO($dataSourceName, $userName, $password);
